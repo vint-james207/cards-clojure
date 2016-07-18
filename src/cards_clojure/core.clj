@@ -23,8 +23,27 @@
   (let [suits (set (map :suit hand))]
     (= 1 (count suits))))
 
+(defn straight? [hand]
+  (let [ranks (sort (map rank hand))
+        first-rank (first ranks)
+        new-ranks (range first-rank (+ 4 first rank))]
+    (= ranks new ranks)))
+
+(defn straight-flush? [hand]
+  (and (flush? hand) (straight? hand)))
+
+(defn four-kind? [hand]
+  (let [ranks (set (map :rank hand))]
+    (= 1 (count ranks))))
+
+(defn three-kind? [hand]
+  (let [ranks]))
+
+(defn two-pair? [hand]
+  (let))
+
 (defn -main []
   (let [deck (create-deck)
         hands (create-hands deck)
-        flushes (filter flush? hands)]
+        flushes (filter straight? hands)]
     (count flushes)))
